@@ -6,12 +6,28 @@ import { useState } from "react";
 import { EXAMPLES } from "./data-with-examples";
 
 function App() {
-  const [selectedTab, setSelectedTab] = useState("components");
+  const [selectedTab, setSelectedTab] = useState("");
+
+  let tabContent;
 
   function handleClick(selectedButton) {
     // selectedButton => 'components', 'jsx', 'props', 'state'
 
     setSelectedTab(selectedButton);
+  }
+
+  if (selectedTab) {
+    tabContent = (
+      <div id="tab-content">
+        <h3>{EXAMPLES[selectedTab].title}</h3>
+        <p>{EXAMPLES[selectedTab].description}</p>
+        <pre>
+          <code>{EXAMPLES[selectedTab].code}</code>
+        </pre>
+      </div>
+    );
+  } else {
+    tabContent = <p>Please select a topic</p>;
   }
 
   return (
@@ -59,13 +75,7 @@ function App() {
               State
             </TabButton>
           </menu>
-          <div id="tab-content">
-            <h3>{EXAMPLES[selectedTab].title}</h3>
-            <p>{EXAMPLES[selectedTab].description}</p>
-            <pre>
-              <code>{EXAMPLES[selectedTab].code}</code>
-            </pre>
-          </div>
+          {tabContent}
         </section>
       </main>
     </div>
