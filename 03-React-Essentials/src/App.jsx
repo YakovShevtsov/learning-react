@@ -2,12 +2,24 @@ import { CORE_CONCEPTS } from "./data";
 import Header from "./components/Header/Header";
 import CoreConcept from "./components/CoreConcept";
 import TabButton from "./components/TabButton";
+import { useState } from 'react';
 
 function App() {
+  const [selectedTab, setSelectedTab] = useState("components");
+
+  let tabContent = "COMPONENTS TAB";
+
   function handleClick(selectedButton) {
     // selectedButton => 'components', 'jsx', 'props', 'state'
-    console.log(selectedButton);
-    
+    setSelectedTab(selectedButton);
+  }
+
+  if (selectedTab == "jsx") {
+    tabContent = "JSX";
+  } else if (selectedTab == "props") {
+    tabContent = "PROPS";
+  } else if (selectedTab == "state") {
+    tabContent = "STATE";
   }
 
   return (
@@ -30,11 +42,14 @@ function App() {
         <section id="examples">
           <h2>Examples</h2>
           <menu>
-            <TabButton onSelect={() => handleClick('components')}>Components</TabButton>
-            <TabButton onSelect={() => handleClick('jsx')}>JSX</TabButton>
-            <TabButton onSelect={() => handleClick('props')}>Props</TabButton>
-            <TabButton onSelect={() => handleClick('state')}>State</TabButton>
+            <TabButton onSelect={() => handleClick("components")}>
+              Components
+            </TabButton>
+            <TabButton onSelect={() => handleClick("jsx")}>JSX</TabButton>
+            <TabButton onSelect={() => handleClick("props")}>Props</TabButton>
+            <TabButton onSelect={() => handleClick("state")}>State</TabButton>
           </menu>
+          {tabContent}
         </section>
       </main>
     </div>
