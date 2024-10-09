@@ -1,6 +1,8 @@
-export default function Section({title, children}) {
-    return <section>
-        <h2>{title}</h2>
-        {children}
+export default function Section({ title, children, ...props }) {
+  return (
+    <section {...props}>
+      <h2>{title}</h2>
+      {children}
     </section>
+  );
 }
