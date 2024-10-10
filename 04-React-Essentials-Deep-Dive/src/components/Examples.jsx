@@ -31,7 +31,6 @@ export default function Examples() {
       id="examples"
     >
       <Tabs
-        buttonsContainer="menu"
         buttons={
           <>
             <TabButton
