@@ -29,6 +29,21 @@ const Input = classes.input`
   box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
 `;
 
+const Button = classes.button`
+  padding: 1rem 2rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  border-radius: 0.25rem;
+  color: #1f2937;
+  background-color: #f0b322;
+  border-radius: 6px;
+  border: none;
+
+  &:hover {
+    background-color: #f0920e;s
+  }
+`;
+
 export default function AuthInputs() {
   const [enteredEmail, setEnteredEmail] = useState("");
   const [enteredPassword, setEnteredPassword] = useState("");
@@ -82,12 +97,12 @@ export default function AuthInputs() {
         >
           Create a new account
         </button>
-        <button
+        <Button
           className="button"
           onClick={handleLogin}
         >
           Sign In
-        </button>
+        </Button>
       </div>
     </div>
   );
