@@ -49,7 +49,6 @@ export default function AuthInputs() {
             invalid={passwordNotValid}
             labelText="Password"
             type="password"
-            className={passwordNotValid ? "invalid" : undefined}
             onChange={(event) =>
               handleInputChange("password", event.target.value)
             }
