@@ -1,11 +1,20 @@
-import { useRef } from "react";
-import React from "react";
+import { forwardRef, useImperativeHandle, useRef } from "react";
 
-const Modal = React.forwardRef(({ result, targetTime }, ref) => {
+const Modal = forwardRef(({ result, targetTime }, ref) => {
+  const modalRef = useRef();
+
+  useImperativeHandle(ref, () => {
+    return {
+      open() {
+        modalRef.current.showModal();
+      },
+    };
+  });
+
   return (
     <dialog
       className="result-modal"
-      ref={ref}
+      ref={modalRef}
     >
       <h2>You {result}</h2>
       <p>
