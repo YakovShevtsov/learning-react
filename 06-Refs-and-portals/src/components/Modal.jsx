@@ -6,6 +6,7 @@ const Modal = forwardRef(
 
     const userLost = remainingTime <= 0;
     const formattedRemainingTime = (remainingTime / 1000).toFixed(2);
+    const score = Math.round((1 - remainingTime / (targetTime * 1000)) * 100);
 
     useImperativeHandle(ref, () => {
       return {
@@ -21,6 +22,7 @@ const Modal = forwardRef(
         ref={modalRef}
       >
         {userLost && <h2>You lost</h2>}
+        {!userLost && <h2>Your score: {score}</h2>}
         <p>
           The target time was <strong>{targetTime}</strong> seconds.
         </p>
