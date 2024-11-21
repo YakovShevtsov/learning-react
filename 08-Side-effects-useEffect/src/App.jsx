@@ -1,12 +1,10 @@
-import { useRef, useState } from "react";
-
+import { useRef, useState, useEffect, useCallback } from "react";
 import Places from "./components/Places.jsx";
 import { AVAILABLE_PLACES } from "./data.js";
 import Modal from "./components/Modal.jsx";
 import DeleteConfirmation from "./components/DeleteConfirmation.jsx";
 import { sortPlacesByDistance } from "./loc.js";
 import logoImg from "./assets/logo.png";
-import { useEffect } from "react";
 
 const storedIds = JSON.parse(localStorage.getItem("selectedPlaces")) || [];
 const storedPlaces = storedIds.map((id) =>
@@ -58,10 +56,11 @@ function App() {
     }
   }
 
-  function handleRemovePlace() {
+  const handleRemovePlace = useCallback(() => {
     setPickedPlaces((prevPickedPlaces) =>
       prevPickedPlaces.filter((place) => place.id !== selectedPlace.current)
     );
+    setModalIsOpen(false);
     const storedIds = JSON.parse(localStorage.getItem("selectedPlaces")) || [];
     localStorage.setItem(
       "selectedPlaces",
@@ -69,9 +68,7 @@ function App() {
         storedIds.filter((storedId) => selectedPlace.current !== storedId)
       )
     );
-
-    setModalIsOpen(false);
-  }
+  }, []);
 
   return (
     <>
