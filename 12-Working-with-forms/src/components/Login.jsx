@@ -11,6 +11,7 @@ export default function Login() {
     const password = passwordRef.current.value;
 
     console.log(email, password);
+    event.target.reset();
   }
 
   return (
