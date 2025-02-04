@@ -7,9 +7,16 @@ export default function Login() {
     email: "",
     password: "",
   });
+  const [didEdit, setDidEdit] = useState({
+    email: false,
+    password: false,
+  });
 
-  const emailIsInvalid =
-    enteredValues.email !== "" && !enteredValues.email.includes("@");
+  const emailIsInvalid = didEdit.email && !enteredValues.email.includes("@");
+
+  function handleInputBlur(identifier) {
+    setDidEdit((prevState) => ({ ...prevState, [identifier]: true }));
+  }
 
   function handleSubmit(event) {
     event.preventDefault();
@@ -21,10 +28,15 @@ export default function Login() {
   //   setEnteredEmail(event.target.value);
   // }
 
-  function handleChangeValue(identifier, value) {
+  function handleInputChange(identifier, value) {
     setEnteredValues((prevValues) => ({
       ...prevValues,
       [identifier]: value,
+    }));
+
+    setDidEdit((prevState) => ({
+      ...prevState,
+      [identifier]: false,
     }));
   }
 
@@ -39,7 +51,8 @@ export default function Login() {
             id="email"
             type="email"
             name="email"
-            onChange={(event) => handleChangeValue("email", event.target.value)}
+            onBlur={() => handleInputBlur("email")}
+            onChange={(event) => handleInputChange("email", event.target.value)}
             value={enteredValues.email}
           />
           <div className="control-error">
@@ -54,7 +67,7 @@ export default function Login() {
             type="password"
             name="password"
             onChange={(event) =>
-              handleChangeValue("password", event.target.value)
+              handleInputChange("password", event.target.value)
             }
             value={enteredValues.password}
           />
