@@ -1,3 +1,5 @@
+import { useActionState } from "react";
+
 import {
   isEmail,
   isNotEmpty,
@@ -6,7 +8,7 @@ import {
 } from "../util/validation.js";
 
 export default function Signup() {
-  function signupAction(formData) {
+  function signupAction(prevFormState, formData) {
     const email = formData.get("email");
     const password = formData.get("password");
     const confirmPassword = formData.get("confirm-password");
@@ -34,21 +36,31 @@ export default function Signup() {
       errors.push("Please provide both your first and last name.");
     }
 
-    if(!isNotEmpty(role)) {
+    if (!isNotEmpty(role)) {
       errors.push("Please select a role.");
     }
 
-    if(!terms) {
-      errors.push("You must agree to the terms and conditions.")
+    if (!terms) {
+      errors.push("You must agree to the terms and conditions.");
     }
 
-    if(acquisitionChannel.length === 0) {
-      errors.push("Please select at least 1 acquisition channel.")
+    if (acquisitionChannel.length === 0) {
+      errors.push("Please select at least 1 acquisition channel.");
     }
+
+    if (errors.length > 0) {
+      return { errors };
+    }
+
+    return { errors: null };
   }
 
+  const [formState, formAction, pending] = useActionState(signupAction, {
+    errors: null,
+  });
+
   return (
-    <form action={signupAction}>
+    <form action={formAction}>
       <h2>Welcome on board!</h2>
       <p>We just need a little bit of data from you to get you started 🚀</p>
 
@@ -160,6 +172,14 @@ export default function Signup() {
           I agree to the terms and conditions
         </label>
       </div>
+
+      {formState.errors && (
+        <ul className="error">
+          {formState.errors.map((error) => (
+            <li key={error.message}>{error}</li>
+          ))}
+        </ul>
+      )}
 
       <p className="form-actions">
         <button
