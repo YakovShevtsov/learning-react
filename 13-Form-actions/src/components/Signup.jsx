@@ -7,49 +7,50 @@ import {
   hasMinLength,
 } from "../util/validation.js";
 
-export default function Signup() {
-  function signupAction(prevFormState, formData) {
-    const email = formData.get("email");
-    const password = formData.get("password");
-    const confirmPassword = formData.get("confirm-password");
-    const firstName = formData.get("first-name");
-    const lastName = formData.get("last-name");
-    const role = formData.get("role");
-    const terms = formData.get("terms");
-    const acquisitionChannel = formData.getAll("acquisition");
+function signupAction(prevFormState, formData) {
+  const email = formData.get("email");
+  const password = formData.get("password");
+  const confirmPassword = formData.get("confirm-password");
+  const firstName = formData.get("first-name");
+  const lastName = formData.get("last-name");
+  const role = formData.get("role");
+  const terms = formData.get("terms");
+  const acquisitionChannel = formData.getAll("acquisition");
 
-    let errors = [];
+  let errors = [];
 
-    if (!isEmail(email)) {
-      errors.push("Invalid email address.");
-    }
+  if (!isEmail(email)) {
+    errors.push("Invalid email address.");
+  }
 
-    if (!isNotEmpty(password) || !hasMinLength(password, 6)) {
-      errors.push("You must provide password with at least 6 characters.");
-    }
+  if (!isNotEmpty(password) || !hasMinLength(password, 6)) {
+    errors.push("You must provide password with at least 6 characters.");
+  }
 
-    if (!isEqualToOtherValue(confirmPassword, password)) {
-      errors.push("Passwords do not match.");
-    }
+  if (!isEqualToOtherValue(confirmPassword, password)) {
+    errors.push("Passwords do not match.");
+  }
 
-    if (!isNotEmpty(firstName) || !isNotEmpty(lastName)) {
-      errors.push("Please provide both your first and last name.");
-    }
+  if (!isNotEmpty(firstName) || !isNotEmpty(lastName)) {
+    errors.push("Please provide both your first and last name.");
+  }
 
-    if (!isNotEmpty(role)) {
-      errors.push("Please select a role.");
-    }
+  if (!isNotEmpty(role)) {
+    errors.push("Please select a role.");
+  }
 
-    if (!terms) {
-      errors.push("You must agree to the terms and conditions.");
-    }
+  if (!terms) {
+    errors.push("You must agree to the terms and conditions.");
+  }
 
-    if (acquisitionChannel.length === 0) {
-      errors.push("Please select at least 1 acquisition channel.");
-    }
+  if (acquisitionChannel.length === 0) {
+    errors.push("Please select at least 1 acquisition channel.");
+  }
 
-    if (errors.length > 0) {
-      return { errors, enteredValues: {
+  if (errors.length > 0) {
+    return {
+      errors,
+      enteredValues: {
         email,
         password,
         confirmPassword,
@@ -57,13 +58,15 @@ export default function Signup() {
         lastName,
         role,
         acquisitionChannel,
-        terms
-      } };
-    }
-
-    return { errors: null };
+        terms,
+      },
+    };
   }
 
+  return { errors: null };
+}
+
+export default function Signup() {
   const [formState, formAction, pending] = useActionState(signupAction, {
     errors: null,
   });
@@ -152,7 +155,9 @@ export default function Signup() {
             id="google"
             name="acquisition"
             value="google"
-            defaultChecked={formState.enteredValues?.acquisitionChannel.includes('google')}
+            defaultChecked={formState.enteredValues?.acquisitionChannel.includes(
+              "google"
+            )}
           />
           <label htmlFor="google">Google</label>
         </div>
@@ -163,7 +168,9 @@ export default function Signup() {
             id="friend"
             name="acquisition"
             value="friend"
-            defaultChecked={formState.enteredValues?.acquisitionChannel.includes('friend')}
+            defaultChecked={formState.enteredValues?.acquisitionChannel.includes(
+              "friend"
+            )}
           />
           <label htmlFor="friend">Referred by friend</label>
         </div>
@@ -174,8 +181,9 @@ export default function Signup() {
             id="other"
             name="acquisition"
             value="other"
-            defaultChecked={formState.enteredValues?.acquisitionChannel.includes('other')}
-
+            defaultChecked={formState.enteredValues?.acquisitionChannel.includes(
+              "other"
+            )}
           />
           <label htmlFor="other">Other</label>
         </div>
@@ -187,7 +195,9 @@ export default function Signup() {
             type="checkbox"
             id="terms-and-conditions"
             name="terms"
-            defaultChecked={formState.enteredValues?.acquisitionChannel.includes('terms')}
+            defaultChecked={formState.enteredValues?.acquisitionChannel.includes(
+              "terms"
+            )}
           />
           I agree to the terms and conditions
         </label>
