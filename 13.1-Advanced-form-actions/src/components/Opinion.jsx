@@ -1,14 +1,15 @@
-import { useFormState } from "react-dom";
 import { use } from "react";
 import { OpinionsContext } from "../store/opinions-context";
 
 export function Opinion({ opinion: { id, title, body, userName, votes } }) {
   const { upvoteOpinion, downvoteOpinion } = use(OpinionsContext);
 
-  function voteUpAction() {
+  async function voteUpAction() {
+    await upvoteOpinion(id);
   }
 
-  function voteDownAction() {
+  async function voteDownAction() {
+    await downvoteOpinion(id);
   }
 
   return (
