@@ -5,6 +5,10 @@ import Submit from "./Submit";
 export function NewOpinion() {
   const { addOpinion } = use(OpinionsContext);
 
+  const [formState, formAction] = useActionState(addOpinionAction, {
+    errors: null,
+  });
+
   async function addOpinionAction(prevFormState, formData) {
     const userName = formData.get("userName");
     const title = formData.get("title");
@@ -34,10 +38,6 @@ export function NewOpinion() {
 
     return { errors: null };
   }
-
-  const [formState, formAction] = useActionState(addOpinionAction, {
-    errors: null,
-  });
 
   return (
     <div id="new-opinion">
