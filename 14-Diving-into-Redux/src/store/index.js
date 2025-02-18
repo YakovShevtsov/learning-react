@@ -9,7 +9,5 @@ const store = configureStore({
   }, // can also asign as an object, to pass multiple reducer functions
 });
 
-export const counterActions = counterSlice.actions;
-export const authActions = authSlice.actions;
 
 export default store;
