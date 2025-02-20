@@ -3,24 +3,24 @@ import classes from "./CartItem.module.css";
 import { cartActions } from "../../store/cart-slice";
 
 const CartItem = (props) => {
-  const { title, quantity, price } = props.item;
+  const { name, quantity, price, id } = props.item;
 
   const dispatch = useDispatch();
 
   const totalPrice = price * quantity;
 
   const handleAddItem = (item) => {
-    dispatch(cartActions.addItem(item));
+    dispatch(cartActions.addItemToCart(item));
   };
 
   const handleRemoveItem = (id) => {
-    dispatch(cartActions.removeItem(id));
+    dispatch(cartActions.removeItemFromCart(id));
   };
 
   return (
     <li className={classes.item}>
       <header>
-        <h3>{title}</h3>
+        <h3>{name}</h3>
         <div className={classes.price}>
           ${totalPrice}{" "}
           <span className={classes.itemprice}>(${price}/item)</span>
@@ -31,8 +31,10 @@ const CartItem = (props) => {
           x <span>{quantity}</span>
         </div>
         <div className={classes.actions}>
-          <button onClick={() => handleRemoveItem(props.item.id)}>-</button>
-          <button onClick={() => handleAddItem(props.item)}>+</button>
+          <button onClick={() => handleRemoveItem(id)}>-</button>
+          <button onClick={() => handleAddItem({ name, quantity, price, id })}>
+            +
+          </button>
         </div>
       </div>
     </li>

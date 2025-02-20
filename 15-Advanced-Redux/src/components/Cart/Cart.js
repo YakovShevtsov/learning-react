@@ -14,10 +14,9 @@ const Cart = (props) => {
           return (
             <CartItem
               item={{
-                title: cartItem.title,
+                name: cartItem.name,
                 quantity: cartItem.quantity,
                 price: cartItem.price,
-                description: cartItem.description,
                 id: cartItem.id,
               }}
               key={cartItem.id}
