@@ -5,9 +5,10 @@ import {
   // Route,
 } from "react-router-dom";
 import HomePage from "./pages/Home";
-import Products from "./pages/Products";
+import ProductsPage from "./pages/Products";
 import RootLayout from "./pages/Root";
-import Error from "./pages/Error";
+import ErrorPage from "./pages/Error";
+import ProductDetailsPage from "./pages/ProductDetails";
 
 // const routeDefinitions = createRoutesFromElements(
 //   <Route>
@@ -26,7 +27,7 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <RootLayout />,
-    errorElement: <Error />,
+    errorElement: <ErrorPage />,
     children: [
       {
         path: "/",
@@ -34,7 +35,11 @@ const router = createBrowserRouter([
       },
       {
         path: "/products",
-        element: <Products />,
+        element: <ProductsPage />,
+      },
+      {
+        path: "/products/:productId",
+        element: <ProductDetailsPage />,
       },
     ],
   },
