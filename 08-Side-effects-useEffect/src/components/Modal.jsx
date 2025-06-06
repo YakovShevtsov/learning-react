@@ -12,6 +12,10 @@ export default function Modal({ children, open, onClose }) {
     }
   }, [open]);
 
+  const function = () => {
+
+  }
+
   return createPortal(
     <dialog
       className="modal"
